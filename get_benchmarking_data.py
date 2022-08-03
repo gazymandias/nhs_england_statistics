@@ -12,22 +12,25 @@ import shutil
 months_list = list(filter(None, list(calendar.month_name)))
 extraction_period_fy_ending = [2020, 2021, 2022]
 
-# construct the urls and the regex matches we will use to find and download the published statistics files and add as tuples to urls list
+# construct the urls and the regex matches we will use to find and download the published statistics files and add as
+# tuples to urls list
 urls = []
 for year in extraction_period_fy_ending:
     financial_year = f"{year - 1}-{abs(year) % 100}"
 
-    rtt_base_url = f"https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/rtt-data-{financial_year}"
+    rtt_base_url = f"https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/rtt-data-" \
+                   f"{financial_year} "
     rtt_file_regex = "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/.*Full-CSV-data-file.*.zip"
     
     urls.append(tuple(['rtt', rtt_base_url, rtt_file_regex]))
 
     cancer_wt_base_url = "https://www.england.nhs.uk/statistics/statistical-work-areas/cancer-waiting-times/"
-    cancer_wt_file_regex = f"https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/{year}/.*Cancer-Waiting-Times.*Data-Extract-Provider.*.xls"
+    cancer_wt_file_regex = f"https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/{year}/.*Cancer-Waiting" \
+                           f"-Times.*Data-Extract-Provider.*.xls "
     urls.append(tuple(['cancer', cancer_wt_base_url, cancer_wt_file_regex]))
 
-    ae_emergency_base_url = f"https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/ae" \
-                   f"-attendances-and-emergency-admissions-{financial_year}/"
+    ae_emergency_base_url = f"https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and" \
+                            f"-activity/ae-attendances-and-emergency-admissions-{financial_year}/ "
     ae_emergency_file_regex = "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/.*.csv"
     urls.append(tuple(['ae_emergency', ae_emergency_base_url, ae_emergency_file_regex]))
 
@@ -61,6 +64,7 @@ def get_files(path):
     for file in os.listdir(path):
         if os.path.isfile(os.path.join(path, file)):
             yield os.path.join(path, file)
+
 
 for file in get_files('raw_data'):
     try:
