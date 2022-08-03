@@ -9,6 +9,8 @@ be saved into the raw_data directory for the project (though production code wou
 
 Zip files are extracted where appropriate, and the final output of csv and xls* files are saved to the clean_data directory.
 
+This improves upon an earlier version and is built to be more efficient and fault tolerant.
+
 ## Installing dependencies
 ```sh
 pip3 install -r requirements.txt
